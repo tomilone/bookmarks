@@ -9,7 +9,6 @@ const bodyParser = express.json();
 bookmarkRouter
   .route("/bookmarks")
   .get((req, res) => {
-    console.log("get /bookmarks worked");
     res.json(bookmarks);
   })
   .post(bodyParser, (req, res) => {
@@ -54,14 +53,13 @@ bookmarkRouter
   .route("/bookmarks/:id")
   .get((req, res) => {
     const { id } = req.params;
-    const bookMark1 = bookmarks.find(bid => bid.id == id);
-    console.log("get /bookmarks:id worked");
-    if (!bookMark1) {
+    const bookMark = bookmarks.find(bid => bid.id == id);
+    if (!bookMark) {
       logger.error(`Bookmark with id ${id} not found.`);
       return res.status(404).send("Bookmark Not Found");
     }
 
-    res.json(bookMark1);
+    res.json(bookMark);
   })
   .delete((req, res) => {
     const { id } = req.params;
