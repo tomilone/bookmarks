@@ -5,14 +5,14 @@ const bookmarks = [
     id: 1,
     title: "hello",
     url: "https://google.com",
-    desciption: "google",
+    description: "google",
     rating: 5
   },
   {
     id: 2,
     title: "bye",
     url: "https://yahoo.com",
-    desciption: "yahoo",
+    description: "yahoo",
     rating: 1
   }
 ];
