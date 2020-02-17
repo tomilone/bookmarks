@@ -5,11 +5,32 @@ const logger = require("../Logger");
 
 const bookmarkRouter = express.Router();
 const bodyParser = express.json();
+const { NODE_ENV } = require("../config");
+const bookmarksService = require('./bookmarksService')
+const knex = require('knex');
+
+const serializeBookmark = bookmark => ({
+  id: bookmark.id,
+  title: bookmark.title,
+  url: bookmark.url,
+  description: bookmark.description,
+  rating: Number(bookmark.rating),
+})
+
+const knexInstance =  knex({
+  client: 'pg',
+  connection: process.env.DB_URL
+})
+
 
 bookmarkRouter
-  .route("/bookmarks")
-  .get((req, res) => {
-    res.json(bookmarks);
+  .route('/bookmarks')
+  .get((req, res, next) => {
+    bookmarksService.getAllBookmarks(knexInstance)
+      .then(bookmarks => {
+        res.json(bookmarks.map(serializeBookmark))
+      })
+      .catch(next)
   })
   .post(bodyParser, (req, res) => {
     const { title, url, description, rating } = req.body;
