@@ -20,9 +20,9 @@ app.use(cors());
 app.use(validateBearerToken);
 app.use('/bookmarks',bookmarksRouter);
 
-app.get("/", (req, res) => {
-  res.send('hello world!')
-});
+// app.get("/", (req, res) => {
+//   res.send('hello world!')
+// });
 
 // app.use(function errorHandler(error, req, res, next) {
 //   let response;

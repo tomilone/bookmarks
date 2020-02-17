@@ -9,13 +9,13 @@ const { NODE_ENV } = require("../config");
 const bookmarksService = require('./bookmarksService')
 const knex = require('knex');
 
-const serializeBookmark = bookmark => ({
-  id: bookmark.id,
-  title: bookmark.title,
-  url: bookmark.url,
-  description: bookmark.description,
-  rating: Number(bookmark.rating),
-})
+// const serializeBookmark = bookmark => ({
+//   id: bookmark.id,
+//   title: bookmark.title,
+//   url: bookmark.url,
+//   description: bookmark.description,
+//   rating: Number(bookmark.rating),
+// })
 
 const knexInstance =  knex({
   client: 'pg',
@@ -24,11 +24,11 @@ const knexInstance =  knex({
 
 
 bookmarkRouter
-  .route('/bookmarks')
+  .route('/')
   .get((req, res, next) => {
     bookmarksService.getAllBookmarks(knexInstance)
       .then(bookmarks => {
-        res.json(bookmarks.map(serializeBookmark))
+        res.json(bookmarks)
       })
       .catch(next)
   })
